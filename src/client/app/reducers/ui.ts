@@ -49,6 +49,7 @@ export function reducer(state = initialState, action: UIActions): UIState {
         }
 
         case UIActionTypes.REPORT_ERROR: {
+            debugger;
             let error = new PlaygroundError(action.payload, action.exception);
             if (environment.current.devMode) {
                 console.error(error, error.innerError);

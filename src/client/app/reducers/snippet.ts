@@ -22,8 +22,10 @@ export const initialState: SnippetState = {
 
 export function reducer(state = initialState, action: SnippetActions | GitHubActions): SnippetState {
     switch (action.type) {
-        case SnippetActionTypes.IMPORT:
+        case SnippetActionTypes.IMPORT: {
+            debugger;
             return { ...state, loading: false };
+        }
 
         case SnippetActionTypes.IMPORT_SUCCESS:
             return {

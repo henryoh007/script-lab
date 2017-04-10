@@ -53,7 +53,9 @@ export class ViewAction implements Action {
 export class ImportAction implements Action {
     readonly type = SnippetActionTypes.IMPORT;
 
-    constructor(public mode: string, public payload?: string) { }
+    constructor(public mode: string, public payload?: string) {
+        debugger;
+    }
 }
 
 export class ImportSuccessAction implements Action {

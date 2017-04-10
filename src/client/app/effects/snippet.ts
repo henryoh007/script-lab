@@ -24,11 +24,18 @@ export class SnippetEffects {
     @Effect()
     import$: Observable<Action> = this.actions$
         .ofType(Snippet.SnippetActionTypes.IMPORT)
-        .map((action: Snippet.ImportAction) => ({ data: action.payload, mode: action.mode }))
+        .map((action: Snippet.ImportAction) => {
+            debugger;
+            return { data: action.payload, mode: action.mode };
+        })
         .mergeMap(({ data, mode }) => this._importRawFromSource(data, mode), ({ mode }, snippet) => ({ mode, snippet }))
-        .filter(({ snippet }) => !(snippet == null))
+        .filter(({ snippet }) => {
+            debugger;
+            return !(snippet == null);
+        })
         .mergeMap(({ snippet, mode }) => this._massageSnippet(snippet, mode))
         .catch((exception: Error) => {
+            debugger;
             const message = (exception instanceof PlaygroundError) ? exception.message : Strings.snippetImportErrorBody;
             return Observable.from([
                 new UI.ReportErrorAction(Strings.snippetImportError, exception),
@@ -201,6 +208,7 @@ export class SnippetEffects {
 
     /** Does a raw import of the snippet.  A subsequent function, _massageSnippet, will clean up any extraneous fields */
     private _importRawFromSource(data: string, type: string): Observable<ISnippet> {
+        debugger;
         AI.trackEvent(type);
         switch (type) {
             /* If creating a new snippet, try to load it from cache */
@@ -269,6 +277,7 @@ export class SnippetEffects {
     }
 
     private _massageSnippet(rawSnippet: ISnippet, mode: string): Observable<Action> {
+        debugger;
         if (rawSnippet.host && rawSnippet.host !== environment.current.host) {
             throw new PlaygroundError(`Cannot import a snippet created for ${rawSnippet.host} in ${environment.current.host}.`);
         }
